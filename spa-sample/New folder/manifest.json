@@ -1,0 +1,6 @@
+{
+  "name": "All-origin access extension",
+  "manifest_version": 2,
+  "version": "1.0",
+  "permissions": ["<all_urls>"]
+}
