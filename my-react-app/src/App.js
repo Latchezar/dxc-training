@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./style.css";
 import Details from "./components/Details";
 import Menu from "./components/Menu";
 
@@ -13,7 +14,9 @@ class App extends React.Component {
   }
 
   handleSearch = text => {
-    this.setState({ category: text });
+    if (text === this.state.category || text === undefined) {
+      return;
+    }
     this.makeFetch(text);
   };
 
@@ -21,21 +24,24 @@ class App extends React.Component {
     this.makeFetch();
   }
 
-  makeFetch() {
-    const category = this.state.category;
-    console.log("fetching " + category);
+  makeFetch(category = "JavaScript") {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${category}`;
     fetch(url)
       .then(response => response.json())
-      .then(jsonResponse => this.setState({ books: jsonResponse.items }));
+      .then(jsonResponse =>
+        this.setState({ books: jsonResponse.items, category: category })
+      );
   }
 
   render() {
     const books = this.state.books;
     return (
       <div className="container">
-        <Menu search={this.handleSearch} />
-        <Details books={books} />
+        <Menu
+          search={this.handleSearch}
+          currentCategory={this.state.category}
+        />
+        <Details books={books} category={this.state.category} />
       </div>
     );
   }
