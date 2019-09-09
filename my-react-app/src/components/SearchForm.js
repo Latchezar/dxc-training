@@ -12,23 +12,26 @@ class SearchForm extends React.Component {
     this.setState({ inputText: e.target.value });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const inputText = this.state.inputText;
-    if (inputText === "" || inputText === undefined) {
-      alert("Invalid Search Text");
-      return;
-    }
-    this.props.search(this.state.inputText);
-    this.setState({ inputText: "" });
-  };
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   const inputText = this.state.inputText;
+  //   if (inputText === "" || inputText === undefined) {
+  //     alert("Invalid Search Text");
+  //     return;
+  //   }
+  //   this.props.search(this.state.inputText);
+  //   this.setState({ inputText: "" });
+  // };
 
   render() {
+    const action = "/" + this.state.inputText;
     return (
       <form
         className="form-inline my-2 my-lg-0"
         id="search-form"
         onSubmit={this.handleSubmit}
+        method="GET"
+        action={action}
       >
         <input
           className="form-control mr-sm-2"

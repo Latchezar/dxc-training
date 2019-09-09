@@ -8,30 +8,40 @@ class Menu extends React.Component {
   };
 
   render() {
-    const listItemsText = ["JavaScript", "Java", "React"];
+    const listItemsText = [
+      { name: "JavaScript", categoryId: 1 },
+      { name: "Java", categoryId: 2 },
+      { name: "React", categoryId: 3 },
+      { name: "Web", categoryId: 4 },
+      { name: "C++", categoryId: 5 },
+      { name: "Angular", categoryId: 6 }
+    ];
     const currentCategory = this.props.currentCategory;
     const actualListItems = listItemsText.map(item => {
-      if (currentCategory === item) {
+      const category = "/" + item.name;
+      if (currentCategory === item.name) {
         return (
           <MenuListItem
-            text={item}
-            search={this.handleSearch}
+            text={item.name}
             isActive={true}
+            key={item.categoryId}
+            url={category}
           />
         );
       } else {
         return (
           <MenuListItem
-            text={item}
-            search={this.handleSearch}
+            text={item.name}
             isActive={false}
+            key={item.categoryId}
+            url={category}
           />
         );
       }
     });
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-primary">
-        <a className="navbar-brand">Book Catalog</a>
+        <span className="navbar-brand">Book Catalog</span>
         <button
           className="navbar-toggler"
           type="button"

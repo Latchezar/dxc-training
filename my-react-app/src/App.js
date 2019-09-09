@@ -3,13 +3,15 @@ import "./App.css";
 import "./style.css";
 import Details from "./components/Details";
 import Menu from "./components/Menu";
+import Book from "./components/Book";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       books: [],
-      category: "JavaScript"
+      category: ""
     };
   }
 
@@ -19,10 +21,6 @@ class App extends React.Component {
     }
     this.makeFetch(text);
   };
-
-  componentDidMount() {
-    this.makeFetch();
-  }
 
   makeFetch(category = "JavaScript") {
     let url = `https://www.googleapis.com/books/v1/volumes?q=${category}`;
@@ -36,13 +34,44 @@ class App extends React.Component {
   render() {
     const books = this.state.books;
     return (
-      <div className="container">
-        <Menu
-          search={this.handleSearch}
-          currentCategory={this.state.category}
-        />
-        <Details books={books} category={this.state.category} />
-      </div>
+      <Router>
+        <div className="container">
+          <Menu
+            search={this.handleSearch}
+            currentCategory={this.state.category}
+          />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={props => (
+                <Details
+                  {...props}
+                  books={books}
+                  category={this.state.category}
+                  search={this.handleSearch}
+                />
+              )}
+            />
+            <Route
+              path="/:category"
+              exact
+              render={props => (
+                <Details
+                  {...props}
+                  books={books}
+                  category={this.state.category}
+                  search={this.handleSearch}
+                />
+              )}
+            />
+            <Route
+              path="/book/:bookUrl"
+              render={props => <Book {...props} books={books} />}
+            />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

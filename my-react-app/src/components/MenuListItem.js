@@ -9,14 +9,18 @@ class MenuListItem extends React.Component {
     const shouldBeActive = this.props.isActive;
     if (shouldBeActive) {
       return (
-        <li className="nav-link active" onClick={this.navClick}>
-          {this.props.text}
+        <li>
+          <a className="nav-link active" href={this.props.url}>
+            {this.props.text}
+          </a>
         </li>
       );
     } else {
       return (
-        <li className="nav-link" onClick={this.navClick}>
-          {this.props.text}
+        <li>
+          <a className="nav-link" href={this.props.url}>
+            {this.props.text}
+          </a>
         </li>
       );
     }
