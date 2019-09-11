@@ -5,7 +5,6 @@ import Loading from "./Loading";
 class Details extends React.Component {
   componentDidMount() {
     const category = this.props.match.params.category;
-    console.log(category);
     if (category === undefined) {
       this.props.search("JavaScript");
     } else {
