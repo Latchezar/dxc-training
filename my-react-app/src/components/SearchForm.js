@@ -18,7 +18,6 @@ class SearchForm extends React.Component {
       <form
         className="form-inline my-2 my-lg-0"
         id="search-form"
-        method="GET"
         action={action}
       >
         <input

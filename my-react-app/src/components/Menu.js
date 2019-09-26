@@ -3,41 +3,43 @@ import SearchForm from "./SearchForm";
 import MenuListItem from "./MenuListItem";
 
 class Menu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: []
+    };
+  }
+
   handleSearch = text => {
     this.props.search(text);
   };
 
+  fetchCategories() {
+    fetch("http://localhost:15350/api/category/all")
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ categories: responseJson });
+      });
+  }
+
+  componentDidMount() {
+    this.fetchCategories();
+  }
+
   render() {
-    const listItemsText = [
-      { name: "JavaScript", categoryId: 1 },
-      { name: "Java", categoryId: 2 },
-      { name: "React", categoryId: 3 },
-      { name: "Web", categoryId: 4 },
-      { name: "C++", categoryId: 5 },
-      { name: "Angular", categoryId: 6 }
-    ];
+    const listItemsText = this.state.categories;
     const currentCategory = this.props.currentCategory;
     const actualListItems = listItemsText.map(item => {
       const category = "/" + item.name;
-      if (currentCategory === item.name) {
-        return (
-          <MenuListItem
-            text={item.name}
-            isActive={true}
-            key={item.categoryId}
-            url={category}
-          />
-        );
-      } else {
-        return (
-          <MenuListItem
-            text={item.name}
-            isActive={false}
-            key={item.categoryId}
-            url={category}
-          />
-        );
-      }
+      return (
+        <MenuListItem
+          text={item.name}
+          currentCategory={currentCategory}
+          key={item.id}
+          subcategories={item.subCategories}
+          url={category}
+        />
+      );
     });
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-primary">

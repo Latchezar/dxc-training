@@ -12,11 +12,11 @@ class Details extends React.Component {
     }
   }
   render() {
+    const category = this.props.match.params.category;
     const books = this.props.books;
     const listItems = books.map(book => (
       <BookDetails bookDetails={book} key={book.id} />
     ));
-    const category = this.props.match.params.category;
     if (category !== undefined) {
       if (listItems.length === 0) {
         return (

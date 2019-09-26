@@ -22,15 +22,12 @@ class Book extends React.Component {
     const id = this.props.match.params.bookUrl;
     let book;
     if (books.length === 0) {
-      if (this.state.book === undefined) {
-        this.makeFetch(id);
-      }
       book = this.state.book;
     } else {
       book = books.filter(b => b.id === id)[0];
-      console.log(book);
     }
     if (book === undefined) {
+      this.makeFetch(id);
       return <Loading />;
     } else {
       try {

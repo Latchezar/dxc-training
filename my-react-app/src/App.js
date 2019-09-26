@@ -4,7 +4,7 @@ import "./style.css";
 import Details from "./components/Details";
 import Menu from "./components/Menu";
 import Book from "./components/Book";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
   constructor() {
@@ -34,7 +34,7 @@ class App extends React.Component {
   render() {
     const books = this.state.books;
     return (
-      <Router>
+      <BrowserRouter>
         <div className="container">
           <Menu
             search={this.handleSearch}
@@ -71,7 +71,7 @@ class App extends React.Component {
             />
           </Switch>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import DropdownItem from "./DropdownItem";
 
 class MenuListItem extends React.Component {
   navClick = () => {
@@ -6,24 +8,33 @@ class MenuListItem extends React.Component {
   };
 
   render() {
-    const shouldBeActive = this.props.isActive;
-    if (shouldBeActive) {
+    const subcategories = this.props.subcategories.map(item => {
       return (
-        <li>
-          <a className="nav-link active" href={this.props.url}>
-            {this.props.text}
-          </a>
-        </li>
+        <DropdownItem
+          item={item}
+          key={item.id}
+          currentCategory={this.props.currentCategory}
+        />
       );
-    } else {
-      return (
-        <li>
-          <a className="nav-link" href={this.props.url}>
-            {this.props.text}
-          </a>
-        </li>
-      );
-    }
+    });
+
+    return (
+      <li className="nav-item dropdown">
+        <span
+          className="nav-link dropdown-toggle"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {this.props.text}
+        </span>
+        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          {subcategories}
+        </div>
+      </li>
+    );
   }
 }
 
